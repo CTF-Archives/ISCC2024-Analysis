@@ -56,8 +56,7 @@ def updateQuestionsolve(type, valueName):
                             break
                 print(category, id, valueName[category][id]["solves"], sep="\t")
 
-
-if __name__ == "__main__":
+def updateQuestion():
     challengeList = {}
     arenaList = {}
 
