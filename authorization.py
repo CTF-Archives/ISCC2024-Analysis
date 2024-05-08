@@ -2,4 +2,4 @@ import os
 
 username = os.getenv("USERNAME")
 
-passwprd = os.getenv("PASSWORD")
+password = os.getenv("PASSWORD")
