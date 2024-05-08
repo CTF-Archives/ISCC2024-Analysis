@@ -2,7 +2,7 @@ name: Update ISCC data
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
   schedule:
     - cron: "* */6 * * *"
 
