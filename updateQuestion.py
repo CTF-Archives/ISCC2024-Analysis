@@ -57,7 +57,7 @@ def updateQuestionsolve(type, valueName):
                 print(category, id, valueName[category][id]["solves"], sep="\t")
 
 
-def main():
+if __name__ == "__main__":
     challengeList = {}
     arenaList = {}
 
@@ -69,7 +69,7 @@ def main():
     # 练武的题目解出情况
     updateQuestionsolve("chal", challengeList)
     # 保存练武的信息
-    with open("./src/data/challenge.json", "w", encoding="UTF-8") as f:
+    with open("./docs/data/challenge.json", "w+", encoding="UTF-8") as f:
         f.write(json.dumps(challengeList, ensure_ascii=False))
 
     # 擂台的题目信息
@@ -77,9 +77,9 @@ def main():
     # 擂台的题目解出情况
     updateQuestionsolve("are", arenaList)
     # 保存擂台的信息
-    with open("./src/data/arena.json", "w", encoding="UTF-8") as f:
+    with open("./docs/data/arena.json", "w", encoding="UTF-8") as f:
         f.write(json.dumps(arenaList, ensure_ascii=False))
 
     # 写入状态信息
-    with open("./src/data/status.json", "w", encoding="UTF-8") as f:
+    with open("./docs/data/status.json", "w", encoding="UTF-8") as f:
         f.write(json.dumps({"updateTime": time.time()}, ensure_ascii=False))

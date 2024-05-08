@@ -2,10 +2,10 @@ import json
 
 userList = {}
 
-with open("./src/data/challenge.json", "r", encoding="utf8") as f:
+with open("./docs/data/challenge.json", "r", encoding="utf8") as f:
     data_challenge = json.load(f)
 
-with open("./src/data/arena.json", "r", encoding="utf8") as f:
+with open("./docs/data/arena.json", "r", encoding="utf8") as f:
     data_arena = json.load(f)
 
 # 重建可索引的所有用户
@@ -65,5 +65,5 @@ for category in list(data_arena.keys()):
             #     userList[solve_record["id"]]["score"] += data_arena[category][challenge]["score"] * 0.5
 
 # 写入用户信息
-with open("./src/data/user.json", "w", encoding="UTF-8") as f:
+with open("./docs/data/user.json", "w", encoding="UTF-8") as f:
     f.write(json.dumps(userList, ensure_ascii=False))
