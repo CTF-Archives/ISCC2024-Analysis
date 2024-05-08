@@ -1,3 +1,5 @@
 import os
 
-os.getenv("")
+username = os.getenv("USERNAME")
+
+passwprd = os.getenv("PASSWORD")

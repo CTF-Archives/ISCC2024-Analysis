@@ -26,6 +26,9 @@ jobs:
 
       - name: Update data
         run: python3 main.py
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
 
       - name: Commit files
         run: |
