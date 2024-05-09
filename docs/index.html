@@ -18,7 +18,7 @@
                     <br>
                     <a><span id="time"></span></a>
                 </span>
-                <div class="col-2"></div>
+                <div class="col-1"></div>
                 <div class="collapse navbar-collapse d-flex">
                     <div class="col-2 form-floating">
                         <input class="form-control" id="name" placeholder="用户名">
@@ -33,14 +33,17 @@
                         <input class="form-control" id="minScore" placeholder="最小成绩" type="number" min="0" value="2000">
                         <label for="minScore">最小成绩</label>
                     </div>
-                    <div class="col-1"></div>
                     <div class="col-2">
                         <button class="col-2 form-control btn btn-outline-primary ms-1" id="analysis"
                             type="button">寻找相似度</button>
                     </div>
                     <div class="col-2">
+                        <button class="col-2 form-control btn btn-outline-primary ms-1" id="search_single"
+                            type="button">画出个人关系网</button>
+                    </div>
+                    <div class="col-2">
                         <button class="col-2 form-control btn btn-outline-primary ms-1" id="search"
-                            type="button">画出关系网</button>
+                            type="button">递归画出全体关系网</button>
                     </div>
                 </div>
             </nav>
@@ -262,6 +265,7 @@
                 }
             });
         });
+
         $("#search").click(function () {
             myChart.showLoading();
             var target = $("#name").val();
@@ -303,6 +307,129 @@
                                     "target": friend
                                 });
                                 search(friend);
+                            }
+                        }
+                    }
+                });
+            }
+
+            Object.keys(user).some(function (id, index, arry) {
+                if (user[id].name === target) {
+                    search(id);
+                    return true; // some{break}
+                }
+            });
+            option = {
+                tooltip: {},
+                legend: [{
+                    data: graph.categories.map(function (a) {
+                        return a.name;
+                    })
+                }],
+                series: [
+                    {
+                        name: 'ISCCAnalsis',
+                        type: 'graph',
+                        layout: 'force',
+                        data: graph.nodes,
+                        links: graph.links,
+                        categories: graph.categories,
+                        roam: true,
+                        label: {
+                            show: true,
+                            position: 'right',
+                            formatter: '{b}'
+                        },
+                        labelLayout: {
+                            hideOverlap: true
+                        },
+                        scaleLimit: {
+                            min: 0.1,
+                            max: 20
+                        },
+                        lineStyle: {
+                            color: 'source',
+                            curveness: 0.3
+                        }
+                    }
+                ]
+            };
+            myChart.hideLoading();
+            myChart.setOption(option);
+        });
+
+        $("#search_single").click(function () {
+            myChart.showLoading();
+            var target = $("#name").val();
+            var graph = {
+                nodes: [],
+                links: [],
+                categories: [
+                    { "name": "大学生赛区" },
+                    { "name": "河南赛区" },
+                    { "name": "广西赛区" },
+                    { "name": "中小学生赛区" },
+                    { "name": "研究生赛区" }
+                ]
+            };
+            var relations = [];
+
+            function search_norecursion(id) {
+                if (relations.includes(id)) {
+                    return;
+                }
+                relations.push(id);
+                console.log(user[id].name);
+                graph.nodes.push({
+                    "id": id,
+                    "name": user[id].name,
+                    "symbolSize": user[id].score / 500,
+                    "value": user[id].score,
+                    "category": (user[id].name.toUpperCase().startsWith("HN-")) ? 1 : (user[id].name.toUpperCase().startsWith("GX-")) ? 2 : (user[id].name.toUpperCase().startsWith("NYCC-")) ? 3 : (user[id].name.toUpperCase().startsWith("GRD-")) ? 4 : 0
+                });
+
+                analysis(id);
+                
+                Object.keys(user[id].friends).forEach(function (friend) {
+                    if (user[id].friends[friend] > Number($("#minSimilarity").val())) {
+                        if (user[friend].score >= Number($("#minScore").val())) {
+                            if (analysis(friend) && !!user[friend].friends[id]) {
+                                graph.links.push({
+                                    "source": id,
+                                    "target": friend
+                                });
+                                //search(friend);
+                            }
+                        }
+                    }
+                });
+            }
+
+            function search(id) {
+                if (relations.includes(id)) {
+                    return;
+                }
+                relations.push(id);
+                console.log(user[id].name);
+                graph.nodes.push({
+                    "id": id,
+                    "name": user[id].name,
+                    "symbolSize": user[id].score / 500,
+                    "value": user[id].score,
+                    "category": (user[id].name.toUpperCase().startsWith("HN-")) ? 1 : (user[id].name.toUpperCase().startsWith("GX-")) ? 2 : (user[id].name.toUpperCase().startsWith("NYCC-")) ? 3 : (user[id].name.toUpperCase().startsWith("GRD-")) ? 4 : 0
+                });
+
+                analysis(id);
+                
+                Object.keys(user[id].friends).forEach(function (friend) {
+                    if (user[id].friends[friend] > Number($("#minSimilarity").val())) {
+                        if (user[friend].score >= Number($("#minScore").val())) {
+                            if (analysis(friend) && !!user[friend].friends[id]) {
+                                graph.links.push({
+                                    "source": id,
+                                    "target": friend
+                                });
+                                search_norecursion(friend);
                             }
                         }
                     }
