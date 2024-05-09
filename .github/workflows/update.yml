@@ -1,10 +1,8 @@
 name: Update ISCC data
 
 on:
-  push:
-    branches: ["main"]
   schedule:
-    - cron: "* */6 * * *"
+    - cron: "* */3 * * *"
 
 jobs:
   update_data:
