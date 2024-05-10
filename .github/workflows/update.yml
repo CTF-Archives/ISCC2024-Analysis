@@ -1,7 +1,7 @@
 name: Update ISCC data
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
   schedule:
     - cron: "0 */1 * * *"
 
