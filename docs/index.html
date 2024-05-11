@@ -42,7 +42,7 @@
                     </div>
                     
                     <div class="col-2">
-                        <button class="col-2 form-control btn btn-outline-primary ms-1" id="search_all_single"
+                        <button class="col-2 form-control btn btn-outline-primary ms-1" id="search_single"
                             type="button">画出个人全题关系网</button>
                     </div>
                     <div class="col-2">
@@ -269,7 +269,7 @@
             });
         });
 
-        $("#search").click(function () {
+        $("#search_all").click(function () {
             myChart.showLoading();
             var target = $("#name").val();
             var graph = {
