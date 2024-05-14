@@ -1,5 +1,5 @@
 import os
 
-username = "randark"
+username = os.getenv("USERNAME")
 
-password = "nxu.nvh7EDB2gdf_mjz"
+password = os.getenv("PASSWORD")

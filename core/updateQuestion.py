@@ -89,7 +89,7 @@ def updateQuestion():
             json.dumps(
                 {
                     "updateTime": time.time(),
-                    "AllUserNumber": res["data"],
+                    "AllUserNumber": int(res["data"]),
                     "ValidUserNumber": len(user_data.keys()),
                 },
                 ensure_ascii=False,
