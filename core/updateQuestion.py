@@ -83,4 +83,15 @@ def updateQuestion():
     # 写入状态信息
     with open("./temp/status.json", "w", encoding="UTF-8") as f:
         res = requests.get("https://information.isclab.org.cn/get_totalcomp").json()
-        f.write(json.dumps({"updateTime": time.time(), "UserNumber": res["data"]}, ensure_ascii=False))
+        with open("./docs/data/user.json", "r", encoding="utf8") as f:
+            user_data = json.load(f)
+        f.write(
+            json.dumps(
+                {
+                    "updateTime": time.time(),
+                    "AllUserNumber": res["data"],
+                    "ValidUserNumber": len(user_data.keys()),
+                },
+                ensure_ascii=False,
+            )
+        )

@@ -115,6 +115,15 @@
                                     href="https://github.com/CTF-Archives/ISCC2024-Analysis/issues">CTF-Archives/ISCC2024-Analysis/issues</a>
                             </ol>
                         </div>
+                        <div class="row">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">目前参赛数据</h5>
+                                    <h6 class="card-text">所有注册用户数: <span id="AllUserNumber"></span></h6>
+                                    <h6 class="card-text">有效答题用户数: <span id="ValidUserNumber"></span></h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -166,6 +175,8 @@
             var date = new Date(dddd.updateTime * 1000);
             var options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
             $('#time').text(date.toLocaleString('zh-cn', options));
+            $('#AllUserNumber').text(dddd.UserNumber);
+            $('#ValidUserNumber').text(dddd.ValidUserNumber);
             finish++;
             if (finish === 4) myChart.hideLoading();
         });
