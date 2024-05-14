@@ -1,4 +1,4 @@
-from requests import Session
+import requests
 import re
 import json
 import time
@@ -7,7 +7,7 @@ from authorization import username, password
 host = "https://iscc.isclab.org.cn"
 
 
-ss = Session()
+ss = requests.Session()
 ss.headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
 
 ptnProfile = re.compile(r'<h1 id="team-id">(.*?)</h1>\s+<h3 class="text-center">总积分为:(\d*?),排在(\d*?)位。</h3>')
@@ -56,6 +56,7 @@ def updateQuestionsolve(type, valueName):
                             break
                 print(category, id, valueName[category][id]["solves"], sep="\t")
 
+
 def updateQuestion():
     challengeList = {}
     arenaList = {}
@@ -81,4 +82,5 @@ def updateQuestion():
 
     # 写入状态信息
     with open("./temp/status.json", "w", encoding="UTF-8") as f:
-        f.write(json.dumps({"updateTime": time.time()}, ensure_ascii=False))
+        res = requests.get("https://information.isclab.org.cn/get_totalcomp").json()
+        f.write(json.dumps({"updateTime": time.time(), "UserNumber": res["data"]}, ensure_ascii=False))
