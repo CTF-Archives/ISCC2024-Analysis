@@ -23,8 +23,6 @@ try:
 except:
     raise ISCCError("ISCC 网站可用性降低，自动停止本次爬取")
 
-print("a")
-
 current_directory = os.getcwd()
 
 # 成功获取到数据，迁移旧数据

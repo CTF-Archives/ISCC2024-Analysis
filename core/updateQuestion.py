@@ -32,7 +32,7 @@ def updateQuestionList(type, valueName):
                 }
                 if type == "arenas":
                     valueName[q["category"]][q["id"]]["author"] = retret["author"]
-                print(q["category"], q["id"], retret["value"], retret["name"], sep="\t")
+                # print(q["category"], q["id"], retret["value"], retret["name"], sep="\t")
             else:
                 raise Exception(f"HTTP {retret.status_code}")
             pass
@@ -54,7 +54,7 @@ def updateQuestionsolve(type, valueName):
                             valueName[category][id]["solves"].remove(i)
                             print(category, id, "成功排除擂台赛中出题人自动解题造成的误差")
                             break
-                print(category, id, valueName[category][id]["solves"], sep="\t")
+                # print(category, id, valueName[category][id]["solves"], sep="\t")
 
 
 def updateQuestion():
