@@ -21,6 +21,7 @@ try:
     core.updateQuestion()
     core.generateUserList()
 except:
+    # TODO如果失败，将临时目录进行清理
     raise ISCCError("ISCC 网站可用性降低，自动停止本次爬取")
 
 current_directory = os.getcwd()
