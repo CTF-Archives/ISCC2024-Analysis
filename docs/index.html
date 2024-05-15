@@ -175,7 +175,7 @@
             var date = new Date(dddd.updateTime * 1000);
             var options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
             $('#time').text(date.toLocaleString('zh-cn', options));
-            $('#AllUserNumber').text(dddd.UserNumber);
+            $('#AllUserNumber').text(dddd.AllUserNumber);
             $('#ValidUserNumber').text(dddd.ValidUserNumber);
             finish++;
             if (finish === 4) myChart.hideLoading();
